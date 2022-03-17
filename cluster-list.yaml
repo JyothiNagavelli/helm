@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: angular
+spec:
+  generators:
+  - list:
+      elements:
+      - cluster: in-cluster
+        url: https://kubernetes.default.svc
+      - cluster: argo
+        url: https://vc-zijle2z5dfrmpokvflks.zlr-dc1.apps.dev.klusternetes.com
+      - cluster: argo2
+        url: https://vc-o2nrm2btlanqnoyrceyl.zlr-dc1.apps.dev.klusternetes.com
+      - cluster: argo3
+        url: https://vc-kreut6flferuoesx4orw.zlr-dc1.apps.dev.klusternetes.com
+  template:
+    metadata:
+      name: '{{cluster}}-angular'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/abhi1-rithu2/helm.git
+        targetRevision: HEAD
+        path: angular
+      destination:
+        server: '{{url}}'
+        namespace: default
