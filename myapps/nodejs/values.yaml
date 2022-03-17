@@ -1,13 +1,11 @@
 # Default values for nodejs.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
-different_images:
-  - node-jyo
-  - nodejs-jyothi
+
 replicaCount: 1
 
 image:
-  repository: rithu1320
+  repository: rithu1320/nodejs-jyothi
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "1.2.0"
