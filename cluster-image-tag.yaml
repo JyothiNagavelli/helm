@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: jyothi
+  name: test
 spec:
   generators:
   - list:
@@ -9,33 +9,28 @@ spec:
       - cluster: in-cluster
         url: https://kubernetes.default.svc
         values:
-          image.tag: '1.1.0'
           replicaCount: '2'
       - cluster: argo
         url: https://vc-t8lnrrytj8fwb63clf49.zlr-dc1.apps.dev.klusternetes.com
         values:
-          image.tag: '1.2.0'
           replicaCount: '3'
       - cluster: argo2
         url: https://vc-7keockut9teuzqzp9cyx.zlr-dc1.apps.dev.klusternetes.com
         values:
-          image.tag: '1.3.0'
           replicaCount: '4'
   template:
     metadata:
-      name: '{{cluster}}-angular'
+      name: '{{cluster}}-test'
     spec:
       project: default
       source:
-        repoURL: https://github.com/sai8465/helmchart.git
+        repoURL: https://github.com/abhi1-rithu2/project.git
         targetRevision: HEAD
-        path: nodejs
+        path: Ezy/project-test
         helm:
           parameters:
           - name: replicaCount
             value: '{{values.replicaCount}}'
-          - name: image.tag
-            value: '{{values.image.tag}}'
 
       destination:
         server: '{{url}}'
